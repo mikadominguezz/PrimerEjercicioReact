@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import Producto from './Producto';
-import logo from './logo.svg';
-import './App.css';
+import Producto from '../Producto';
+import Star from './Star';
+import logo from '../logo.svg';
+import '../App.css';
 
 function StarRatingDemo() {
   // Array de productos hardcodeados
@@ -31,29 +32,28 @@ function StarRatingDemo() {
     <div className="App star-demo">
       <h1>Demo de Calificación de Productos</h1>
       <div className="productos-lista">
-        {productos.map((producto, idx) => (
+        {productos.map((producto, productoIndex) => (
           <div key={producto.nombre} className="producto-card">
             <img src={logo} alt={producto.nombre} className="producto-img" />
             <h2>{producto.nombre}</h2>
             <p>Precio: ${producto.precio.toFixed(2)}</p>
             <div className="star-rating">
-              {[...Array(5)].map((_, i) => {
-                const starValue = i + 1;
+              {[...Array(5)].map((valorIgnorado, estrellaIndex) => {
+                const starValue = estrellaIndex + 1;
+                const filled = starValue <= (hovers[productoIndex] || ratings[productoIndex]);
                 return (
-                  <span
+                  <Star
                     key={starValue}
-                    className="star"
-                    onClick={() => handleRating(idx, starValue)}
-                    onMouseEnter={() => handleHover(idx, starValue)}
-                    onMouseLeave={() => handleHover(idx, 0)}
-                  >
-                    {starValue <= (hovers[idx] || ratings[idx]) ? '★' : '☆'}
-                  </span>
+                    filled={filled}
+                    onClick={() => handleRating(productoIndex, starValue)}
+                    onMouseEnter={() => handleHover(productoIndex, starValue)}
+                    onMouseLeave={() => handleHover(productoIndex, 0)}
+                  />
                 );
               })}
             </div>
             <div className="calificacion-texto">
-              {ratings[idx] > 0 ? `Calificación: ${ratings[idx]} estrellas` : 'Sin calificación'}
+              {ratings[productoIndex] > 0 ? `Calificación: ${ratings[productoIndex]} estrellas` : 'Sin calificación'}
             </div>
           </div>
         ))}

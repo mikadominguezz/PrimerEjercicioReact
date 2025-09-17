@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import StarRatingDemo from './StarRatingDemo.jsx';
+import StarRatingDemo from './components/StarRatingDemo.jsx';
 
 function Home() {
   return (
