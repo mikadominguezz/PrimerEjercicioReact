@@ -5,7 +5,7 @@ import logo from '../logo.svg';
 import '../App.css';
 import { useSearchParams } from 'react-router-dom';
 
-function SpecificProduct() {
+function SpecificProduct({ comment }) {
   // Productos hardcodeados con ratings de otras personas
   const productos = [
     {
@@ -40,8 +40,8 @@ function SpecificProduct() {
   const [hover, setHover] = useState(0);
   const [ratingPromedio, setRatingPromedio] = useState(item.ratingPromedio);
   const [cantidadRatings, setCantidadRatings] = useState(item.cantidadRatings);
-
   const [hasRated, setHasRated] = useState(false);
+
   const handleRating = (value) => {
     if (hasRated) return;
     setRating(value);
@@ -56,6 +56,7 @@ function SpecificProduct() {
   const handleHover = (value) => {
     setHover(value);
   };
+
 
   return (
     <div className="App star-demo">
@@ -86,6 +87,13 @@ function SpecificProduct() {
         <div className="calificacion-texto">
           {ratingPromedio.toFixed(1)} de 5 ({cantidadRatings} ratings)
         </div>
+        {/* Mostrar comentario debajo del rating */}
+        {comment && (
+          <div className="comentarios" style={{ marginTop: 16 }}>
+            <strong>Comentario:</strong>
+            <div style={{ paddingLeft: 18, textAlign: 'left' }}>{comment}</div>
+          </div>
+        )}
       </div>
     </div>
   );

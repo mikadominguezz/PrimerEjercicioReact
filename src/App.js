@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
 import SpecificProduct from './components/SpecificProduct.jsx';
 import Home from './components/Home.jsx';
 
-function AppContent() {
+
+function AppContent({ comment, setComment }) {
   const location = useLocation();
   const isSpecificProduct = location.pathname === '/calificacion';
   return (
@@ -14,17 +15,18 @@ function AppContent() {
         </nav>
       )}
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/calificacion" element={<SpecificProduct />} />
+        <Route path="/" element={<Home comment={comment} setComment={setComment} />} />
+        <Route path="/calificacion" element={<SpecificProduct comment={comment} />} />
       </Routes>
     </>
   );
 }
 
 function App() {
+  const [comment, setComment] = useState("");
   return (
     <BrowserRouter>
-      <AppContent />
+      <AppContent comment={comment} setComment={setComment} />
     </BrowserRouter>
   );
 }

@@ -4,32 +4,47 @@ import Star from './Star';
 import logo from '../logo.svg';
 import '../App.css';
 import { Link } from 'react-router-dom';
+import React from 'react';
+import Navbar from './Navbar';
 
 // Productos hardcodeados con ratings de otras personas
 const productos = [
   {
-    producto: new Producto('Producto de Ejemplo', 199.99),
+    producto: new Producto('Iphone 14', 199.99),
     ratingPromedio: 4.2,
     cantidadRatings: 15,
     img: 'https://compucellservice.com/wp-content/uploads/2024/12/Celular-Apple-iPhone-14-png1.png'
   },
   {
-    producto: new Producto('Producto Premium', 499.99),
+    producto: new Producto('Cpu i7 14th Gen', 499.99),
     ratingPromedio: 3.7,
     cantidadRatings: 8,
     img: 'https://tcomponentes.com.uy/wp-content/uploads/2025/05/INTEL-CORE-I7-14700K-TCOMPONENTES.png'
   },
   {
-    producto: new Producto('Producto Básico', 99.99),
+    producto: new Producto('Astro A50', 99.99),
     ratingPromedio: 4.8,
     cantidadRatings: 22,
     img: 'https://resource.logitech.com/content/dam/astro/en/products/a50-headset-with-base-station-gen4/a50-gallery-xbox-01.png'
   }
 ];
 
-function Home() {
+
+function Home({ comment, setComment }) {
+  const [inputValue, setInputValue] = React.useState("");
+  const handleInputKeyDown = (e) => {
+    if (e.key === 'Enter' && inputValue.trim()) {
+      setComment(inputValue);
+      setInputValue("");
+    }
+  };
   return (
     <div className="App">
+      <Navbar
+        inputValue={inputValue}
+        setInputValue={setInputValue}
+        handleInputKeyDown={handleInputKeyDown}
+      />
       <h1>Productos y sus calificaciones</h1>
       <div className="productos-lista">
         {productos.map((item, idx) => (
@@ -47,6 +62,13 @@ function Home() {
             <div className="calificacion-texto">
               {item.ratingPromedio} de 5 ({item.cantidadRatings} ratings)
             </div>
+            {/* Mostrar comentario debajo del rating */}
+            {comment && (
+              <div className="comentarios">
+                <strong>Comentario:</strong>
+                <div style={{ paddingLeft: 18, textAlign: 'left' }}>{comment}</div>
+              </div>
+            )}
             <Link className="main-link" to={`/calificacion?producto=${idx}`}>Ir a este producto</Link>
           </div>
         ))}
