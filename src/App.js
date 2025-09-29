@@ -1,27 +1,30 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import StarRatingDemo from './components/StarRatingDemo.jsx';
+import { BrowserRouter, Routes, Route, Link, useLocation } from 'react-router-dom';
+import SpecificProduct from './components/SpecificProduct.jsx';
+import Home from './components/Home.jsx';
 
-function Home() {
+function AppContent() {
+  const location = useLocation();
+  const isSpecificProduct = location.pathname === '/calificacion';
   return (
-    <div className="App">
-      <h1>Bienvenido a la demo</h1>
-      <Link to="/calificacion">Ir a calificación de productos</Link>
-    </div>
+    <>
+      {isSpecificProduct && (
+        <nav style={{ margin: '16px' }}>
+          <Link to="/" style={{ marginRight: '16px' }}>Inicio</Link>
+        </nav>
+      )}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/calificacion" element={<SpecificProduct />} />
+      </Routes>
+    </>
   );
 }
 
 function App() {
   return (
     <BrowserRouter>
-      <nav style={{ margin: '16px' }}>
-        <Link to="/" style={{ marginRight: '16px' }}>Inicio</Link>
-        <Link to="/calificacion">Calificación</Link>
-      </nav>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/calificacion" element={<StarRatingDemo />} />
-      </Routes>
+      <AppContent />
     </BrowserRouter>
   );
 }

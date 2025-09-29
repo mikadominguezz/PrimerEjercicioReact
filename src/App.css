@@ -21,8 +21,16 @@
 }
 
 .producto-img {
-  width: 80px;
+  width: 100%;
+  max-width: 180px;
+  height: 250px;
   margin-bottom: 16px;
+  object-fit: contain;
+  background: #f8f8f8;
+  border-radius: 8px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .star-rating {
@@ -65,15 +73,27 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+/* Botón para links principales */
+.main-link, .nav-link {
+  display: inline-block;
+  margin-top: 24px;
+  font-size: 1.1rem;
+  background: #ffd700;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  border: none;
+  box-shadow: 0 2px 8px #eee;
+  transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+  cursor: pointer;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.main-link:hover, .nav-link:hover {
+  background: #d4a200;
+  color: #fff;
+  box-shadow: 0 4px 16px #ffd70055;
+  text-decoration: none;
 }
+
